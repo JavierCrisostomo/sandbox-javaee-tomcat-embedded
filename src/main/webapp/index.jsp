@@ -14,7 +14,7 @@
 		<li><a target="_blank" href="/api/v1">REST Index</a></li>
 		<li><a target="_blank" href="/api/v1/home/path/to/unknown">REST Home - Test PATH_INFO</a></li>
 		<li><a target="_blank" href="/api/v1/home/path/to/unknown?pname1=pvalue1&pname2=pvalue2">REST Home - Test PATH_INFO and QueryString</a></li>
-		<li><a target="_blank" href="/api/v1/admin?action=ViewSystemSetting">REST Admin ViewSystemSetting</a></li>
+		<li><a target="_blank" href="/api/v1/admin/ViewSystemSetting">REST Admin ViewSystemSetting</a></li>
 	</ul>
 </body>
 </html>

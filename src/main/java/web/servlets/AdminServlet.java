@@ -7,7 +7,7 @@
     0.1
 @date
     - Created: 2017-02-11
-    - Modified: 2017-02-11
+    - Modified: 2017-02-15
     .
 @note
     References:
@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
@@ -35,10 +34,8 @@ import data.sqlite.repositories.*;
  * Servlet implementation class Admin.
  */
 @SuppressWarnings("serial")
-@WebServlet("/api/v1/admin")
-public class AdminServlet extends HttpServlet {
-    protected static final String mssqlConnectionString = "jdbc:sqlserver://127.0.0.1;instance=SQLEXPRESS;databaseName=Sandbox;user=sa;password=sa";
-
+@WebServlet("/api/v1/admin/*")
+public class AdminServlet extends BaseServlet {
     /**
      * Default constructor.
      */
@@ -51,39 +48,15 @@ public class AdminServlet extends HttpServlet {
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");
 
-        String action = req.getParameter("action");
+        String action = getActionName(req);
 
-        if(action == null) {
-            res.getWriter().write("Missing action querystring (eg web.com/api/v1/servlet?action=yourname).");
-            return;
-        }
-
-        if(action.equals("ViewSystemSetting")) {
+        if(isActionEquals(action, "ViewSystemSetting")) {
             sb1.append(actionViewSystemSetting(req, res));
-        } else if(action.equals("CreateSystemSetting")) {
+        } else if(isActionEquals(action, "CreateSystemSetting")) {
             sb1.append(actionCreateSystemSetting(req, res));
         } else {
             sb1.append("Missing action name.");
         }
-
-        /*
-        if(sqliteConnectionString != null) {
-            ISystemRepository repoSystem = new SystemRepository(sqliteConnectionString);
-
-            sb1.append(System.getProperty("line.separator"));
-            sb1.append("Database Table : SystemSetting").append(System.getProperty("line.separator"));
-            sb1.append(System.getProperty("line.separator"));
-            for(SystemSetting item: repoSystem.getSettings()) {
-                sb1.append("Name : ").append(item.getName()).append(System.getProperty("line.separator"));
-                sb1.append("Value : ").append(item.getValue()).append(System.getProperty("line.separator"));
-                sb1.append(System.getProperty("line.separator"));
-            }
-        } else {
-            sb1.append(System.getProperty("line.separator"));
-            sb1.append("The database file is missing or cannot be found.").append(System.getProperty("line.separator"));
-            sb1.append(System.getProperty("line.separator"));
-        }
-        */
 
         res.getWriter().write(sb1.toString());
     }
@@ -94,7 +67,7 @@ public class AdminServlet extends HttpServlet {
     }
 
     /**
-     * CreateSystemSetting.
+     * Action CreateSystemSetting.
      */
     protected String actionCreateSystemSetting(HttpServletRequest req, HttpServletResponse res) {
         Gson json = new Gson();
