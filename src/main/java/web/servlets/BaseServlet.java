@@ -7,7 +7,7 @@
     0.1
 @date
     - Created: 2017-02-15
-    - Modified: 2017-02-15
+    - Modified: 2017-02-20
     .
 @note
     References:
@@ -30,7 +30,7 @@ import data.sqlite.repositories.*;
  */
 @SuppressWarnings("serial")
 public class BaseServlet extends HttpServlet {
-    protected static final String mssqlConnectionString = "jdbc:sqlserver://127.0.0.1;instance=SQLEXPRESS;databaseName=Sandbox;user=sa;password=sa";
+    protected static final String mssqlConnectionString = "jdbc:sqlserver://127.0.0.1;instance=SQLEXPRESS;databaseName=ApplicationDatabase;user=sa;password=sa";
 
     /**
      * Default constructor.
@@ -118,8 +118,11 @@ public class BaseServlet extends HttpServlet {
 
         // Get debug information.
         sb1.append(System.getProperty("line.separator"));
-        sb1.append("Request Context Path : ").append(req.getContextPath()).append(System.getProperty("line.separator"));
+        sb1.append("User Working Directory and FileInputStream Path : ").append(System.getProperty("user.dir")).append(System.getProperty("line.separator"));
+        sb1.append("Servlet Context Real Path : ").append(getServletContext().getRealPath("/")).append(System.getProperty("line.separator"));
         sb1.append("Classes Folder Path : ").append(BaseRepository.getClassesFolderPath()).append(System.getProperty("line.separator"));
+        sb1.append("Request Context Path : ").append(req.getContextPath()).append(System.getProperty("line.separator"));
+        sb1.append(System.getProperty("line.separator"));
 
         return sb1.toString();
     }

@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Home.
  */
-@WebServlet({"/api/v1" , "/api/v1/home/*"})
+@WebServlet({"/api/v1", "/api/v1/home/*"})
 public class HomeServlet extends BaseServlet {
     protected static final long serialVersionUID = 1L;
 
@@ -54,8 +54,7 @@ public class HomeServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        super.doPost(req, resp);
     }
 }

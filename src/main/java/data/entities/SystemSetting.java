@@ -7,7 +7,7 @@
     0.1
 @date
     - Created: 2017-02-05
-    - Modified: 2017-02-11
+    - Modified: 2017-02-16
     .
 @note
     References:
@@ -19,10 +19,12 @@
 
 package data.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class SystemSetting {
+@SuppressWarnings("serial")
+public class SystemSetting implements Serializable {
     private UUID id;
     private String applicationName;
     private String name;
@@ -30,7 +32,19 @@ public class SystemSetting {
     private Date dateModified;
 
     public SystemSetting() {
+        this.id = UUID.randomUUID();
+        this.applicationName = "";
+        this.name = "";
         this.value = "";
+        this.dateModified = new Date();
+    }
+
+    public SystemSetting(String name, String value) {
+        this.id = UUID.randomUUID();
+        this.applicationName = "";
+        this.name = name;
+        this.value = value;
+        this.dateModified = new Date();
     }
 
     public String getApplicationName() {

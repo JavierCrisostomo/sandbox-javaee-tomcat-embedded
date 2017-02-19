@@ -19,13 +19,16 @@
 
 package data.sqlite.repositories;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
-import java.sql.*;
-import data.interfaces.*;
-import data.entities.*;
+import data.entities.SystemSetting;
+import data.interfaces.ISystemRepository;
 
 /**
  * System repository.
@@ -138,8 +141,8 @@ public class SystemRepository extends BaseRepository implements ISystemRepositor
             sqlConnection = DriverManager.getConnection(this._sqlConnectionString);
             sqlStatement = sqlConnection.createStatement();
             sqlResultSet = sqlStatement.executeQuery("SELECT * FROM SystemSetting ORDER BY ApplicationName ASC, Name ASC;");
-            List<SystemSetting> objs1 = new ArrayList<SystemSetting>();
-            while (sqlResultSet.next()) {
+            Collection<SystemSetting> objs1 = new ArrayList<SystemSetting>();
+            while(sqlResultSet.next()) {
                 SystemSetting obj = new SystemSetting();
                 obj.setName(sqlResultSet.getString("Name"));
                 obj.setValue(sqlResultSet.getString("Value"));
@@ -165,5 +168,4 @@ public class SystemRepository extends BaseRepository implements ISystemRepositor
         // TODO Auto-generated method stub
         return null;
     }
-
 }

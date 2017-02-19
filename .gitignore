@@ -13,7 +13,8 @@ local.properties
 .recommenders
 
 # Eclipse Core
-.project
+# Comment the next line to allow Eclipse to import project
+#.project
 
 # External tool builders
 .externalToolBuilders/
@@ -22,7 +23,8 @@ local.properties
 *.launch
 
 # JDT-specific (Eclipse Java Development Tools)
-.classpath
+# Comment the next line to allow Eclipse to import project
+#.classpath
 
 # Java annotation processor (APT)
 .factorypath

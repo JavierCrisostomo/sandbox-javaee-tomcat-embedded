@@ -7,7 +7,7 @@
     0.1
 @date
     - Created: 2017-02-05
-    - Modified: 2017-02-08
+    - Modified: 2017-02-20
     .
 @note
     References:
@@ -37,7 +37,7 @@ public class BaseRepository implements IBaseRepository {
     }
 
     public static String getDefaultConnectionString() {
-        String filePath = getClassesFolderPath() + "Sandbox.sqlite3";
+        String filePath = getClassesFolderPath() + "ApplicationDatabase.sqlite3";
 
         System.out.println();
         System.out.println("data.sqlite.repositories.BaseRepository.GetDefaultConnectionString, Classes Folder Path : " + getClassesFolderPath());

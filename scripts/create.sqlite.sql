@@ -3,7 +3,7 @@
 /// File       : create.sqlite.sql
 /// Version    : 0.1
 /// Created    : 2017-02-06
-/// Modified   : 2017-02-07
+/// Modified   : 2017-02-16
 ///
 /// Author     : William Chang
 /// Email      : william@babybluebox.com
@@ -64,6 +64,7 @@ INSERT INTO SystemSetting (Id, ApplicationName, Name, Value, DateModified) VALUE
 
 CREATE TABLE SystemLog (
     Id integer not null,
+    ApplicationName text not null,
     DateCreated datetime not null,
     Thread text not null,
     Level text not null,
@@ -72,21 +73,18 @@ CREATE TABLE SystemLog (
     Exception text not null,
     PRIMARY KEY (Id)
 );
-INSERT INTO SystemLog (DateCreated, Thread, Level, Logger, Message, Exception) VALUES (strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0', 'Debug', 'DefaultLogger', 'YourMessage1', 'YourException1');
-INSERT INTO SystemLog (DateCreated, Thread, Level, Logger, Message, Exception) VALUES (strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0', 'Debug', 'DefaultLogger', 'YourMessage2', 'YourException2');
-INSERT INTO SystemLog (DateCreated, Thread, Level, Logger, Message, Exception) VALUES (strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0', 'Debug', 'DefaultLogger', 'YourMessage3', 'YourException3');
+INSERT INTO SystemLog (ApplicationName, DateCreated, Thread, Level, Logger, Message, Exception) VALUES ('', strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0', 'Debug', 'DefaultLogger', 'YourMessage1', 'YourException1');
+INSERT INTO SystemLog (ApplicationName, DateCreated, Thread, Level, Logger, Message, Exception) VALUES ('', strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0', 'Debug', 'DefaultLogger', 'YourMessage2', 'YourException2');
+INSERT INTO SystemLog (ApplicationName, DateCreated, Thread, Level, Logger, Message, Exception) VALUES ('', strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime'), '0', 'Debug', 'DefaultLogger', 'YourMessage3', 'YourException3');
 
 CREATE TABLE SystemSession (
     Id text not null,
     ApplicationName text not null,
     DateCreated datetime not null,
+    DateAccessed datetime not null,
     DateExpire datetime not null,
-    DateLock datetime not null,
-    LockId integer not null,
-    Timeout integer not null,
-    IsLocked boolean not null,
-    Value text not null,
-    Flag integer not null,
+    Value blob not null,
+    Metadata text not null,
     PRIMARY KEY (Id)
 );
 

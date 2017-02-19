@@ -62,7 +62,7 @@ public class Application {
         //Disable TLD scanning by default
         if(System.getProperty(Constants.SKIP_JARS_PROPERTY) == null && System.getProperty(Constants.SKIP_JARS_PROPERTY) == null) {
             System.out.println("disabling TLD scanning");
-            StandardJarScanFilter jarScanFilter = (StandardJarScanFilter) ctx.getJarScanner().getJarScanFilter();
+            StandardJarScanFilter jarScanFilter = (StandardJarScanFilter)ctx.getJarScanner().getJarScanFilter();
             jarScanFilter.setTldSkip("*");
         }
 
