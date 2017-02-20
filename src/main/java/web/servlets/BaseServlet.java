@@ -47,8 +47,9 @@ public class BaseServlet extends HttpServlet {
             if(pathSegments != null && pathSegments.length >= 2) {
                 return pathSegments[1];
             }
+            return null;
         }
-        return null;
+        return "index";
     }
 
     /**
