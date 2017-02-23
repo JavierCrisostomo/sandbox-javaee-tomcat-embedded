@@ -7,7 +7,7 @@
     0.1
 @date
     - Created: 2017-02-05
-    - Modified: 2017-02-11
+    - Modified: 2017-02-23
     .
 @note
     References:
@@ -65,11 +65,11 @@ public class SystemRepository extends BaseRepository implements ISystemRepositor
             if(numRowsAffected <= 0) {
                 return null;
             }
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex) {
+            ex.printStackTrace();
         } finally {
-            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception e) {}
-            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception e) {}
+            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception ex) {}
+            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception ex) {}
         }
         return s;
     }
@@ -87,11 +87,11 @@ public class SystemRepository extends BaseRepository implements ISystemRepositor
             if(numRowsAffected <= 0) {
                 return false;
             }
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex) {
+            ex.printStackTrace();
         } finally {
-            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception e) {}
-            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception e) {}
+            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception ex) {}
+            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception ex) {}
         }
         return true;
     }
@@ -109,11 +109,11 @@ public class SystemRepository extends BaseRepository implements ISystemRepositor
             if(numRowsAffected <= 0) {
                 return false;
             }
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex) {
+            ex.printStackTrace();
         } finally {
-            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception e) {}
-            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception e) {}
+            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception ex) {}
+            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception ex) {}
         }
         return true;
     }
@@ -149,12 +149,12 @@ public class SystemRepository extends BaseRepository implements ISystemRepositor
                 objs1.add(obj);
             }
             return objs1;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex) {
+            ex.printStackTrace();
         } finally {
-            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception e) {}
-            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception e) {}
-            if(sqlResultSet != null) try {sqlResultSet.close();} catch(Exception e) {}
+            if(sqlConnection != null) try {sqlConnection.close();} catch(Exception ex) {}
+            if(sqlStatement != null) try {sqlStatement.close();} catch(Exception ex) {}
+            if(sqlResultSet != null) try {sqlResultSet.close();} catch(Exception ex) {}
         }
         return new ArrayList<SystemSetting>();
     }

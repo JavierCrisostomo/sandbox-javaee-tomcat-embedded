@@ -7,7 +7,7 @@
     0.1
 @date
     - Created: 2017-02-11
-    - Modified: 2017-02-15
+    - Modified: 2017-02-23
     .
 @note
     References:
@@ -36,20 +36,35 @@ import data.sqlite.repositories.*;
 @SuppressWarnings("serial")
 @WebServlet("/api/v1/admin/*")
 public class AdminServlet extends BaseServlet {
+    protected ISystemRepository repoSystem;
+
     /**
      * Default constructor.
      */
-    public AdminServlet() {}
+    public AdminServlet() {
+        String sqliteConnectionString = BaseRepository.getDefaultConnectionString();
+        if(sqliteConnectionString != null) {
+            repoSystem = new SystemRepository(sqliteConnectionString);
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         StringBuilder sb1 = new StringBuilder();
+        String action = getActionName(req);
 
+        // Set view.
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");
 
-        String action = getActionName(req);
+        // Validate repositories.
+        if(repoSystem == null) {
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            res.getWriter().write("{\"Error\":\"The database file is missing or cannot be found.\"}");
+            return;
+        }
 
+        // Validate action from URL.
         if(isActionEquals(action, "ViewSystemSetting")) {
             sb1.append(actionViewSystemSetting(req, res));
         } else if(isActionEquals(action, "CreateSystemSetting")) {
@@ -71,20 +86,14 @@ public class AdminServlet extends BaseServlet {
      */
     protected String actionCreateSystemSetting(HttpServletRequest req, HttpServletResponse res) {
         Gson json = new Gson();
-        String sqliteConnectionString = BaseRepository.getDefaultConnectionString();
 
-        if(sqliteConnectionString != null) {
-            ISystemRepository repoSystem = new SystemRepository(sqliteConnectionString);
-            SystemSetting obj1 = new SystemSetting();
-            obj1.setId(UUID.fromString(req.getParameter("Id")));
-            obj1.setApplicationName(req.getParameter("ApplicationName"));
-            obj1.setName(req.getParameter("Name"));
-            obj1.setValue(req.getParameter("Value"));
-            obj1.setDateModified(new java.util.Date());
-            return json.toJson(repoSystem.createSetting(obj1));
-        } else {
-            return "";
-        }
+        SystemSetting obj1 = new SystemSetting();
+        obj1.setId(UUID.fromString(req.getParameter("Id")));
+        obj1.setApplicationName(req.getParameter("ApplicationName"));
+        obj1.setName(req.getParameter("Name"));
+        obj1.setValue(req.getParameter("Value"));
+        obj1.setDateModified(new java.util.Date());
+        return json.toJson(repoSystem.createSetting(obj1));
     }
 
     /**
@@ -92,14 +101,7 @@ public class AdminServlet extends BaseServlet {
      */
     protected String actionViewSystemSetting(HttpServletRequest req, HttpServletResponse res) {
         Gson json = new Gson();
-        String sqliteConnectionString = BaseRepository.getDefaultConnectionString();
 
-        if(sqliteConnectionString != null) {
-            ISystemRepository repoSystem = new SystemRepository(sqliteConnectionString);
-            return json.toJson(repoSystem.getSettings());
-        } else {
-            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return "{\"Error\":\"The database file is missing or cannot be found.\"}";
-        }
+        return json.toJson(repoSystem.getSettings());
     }
 }
